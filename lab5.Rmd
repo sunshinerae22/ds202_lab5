@@ -1,0 +1,61 @@
+---
+title: "lab5"
+author: "Stephanie Femrite"
+date: "4/13/2020"
+output: html_document
+---
+
+library(tidyverse)
+
+acc <- read.csv("https://raw.githubusercontent.com/xdaiISU/ds202materials/master/hwlabs/fars2017/accident.csv", stringsAsFactors = FALSE)
+
+per <-read.csv("https://raw.githubusercontent.com/xdaiISU/ds202materials/master/hwlabs/fars2017/person.csv", stringsAsFactors = FALSE)
+
+View(acc)
+
+View(per)
+
+#Part 1
+
+# 1)
+
+ggplot(acc, aes(x= DAY_WEEK)) + geom_bar()
+
+# It looks like  more accidents occur on Saturday (day 7) than any other day
+
+#2)
+
+acc1 <- acc %>%
+  filter(HOUR != 99)
+
+ggplot(acc1, aes(x= HOUR)) + geom_bar()
+
+# The most accidents occur at 6 PM.
+
+#3)
+
+acc2 <- acc %>%
+  group_by(DRUNK_DR) %>%
+  filter(DRUNK_DR != 0)
+
+count(acc2)
+
+# There are 8769 accidents involving drunk drivers.
+
+# Part 2
+#4)
+
+unique(per$PER_TYP)
+
+#5)
+
+accPer <- full_join(acc, per, by = "ST_CASE")SS
+
+#6)
+
+accPer1 <- accPer %>%
+  filter(HOUR.x != 99)
+
+ggplot(accPer1, aes(x=HOUR.x, y = SEX))+ geom_point()
+  
+  
